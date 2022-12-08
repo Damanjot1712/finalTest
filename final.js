@@ -24,7 +24,7 @@ module.exports.startDB = function () {
      });
  };
 
- signIn: function (user) {
+ signIn: function(user) {
     return new Promise(function (resolve, reject) {
         finalUsers.findOne({ email: user.email })
         .then((UserFound) => {
