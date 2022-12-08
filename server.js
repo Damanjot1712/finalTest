@@ -2,21 +2,23 @@ var express = require("express");
 var path = require("path");
 const app = express();
 app.use(express.static("public"));
-var final = require('./final.js');
+var Final = require('./final.js');
 const port = process.env.PORT || 8080;
 function onhttp(){
   console.log("Express http server listening on port",port);
 }
+
 app.get("/", function(req,res){
   res.sendFile(path.join(__dirname, '/finalViews/home.html'));
 });
+
 app.get("/register", function(req,res){
-  res.sendFile(path.join(__dirname, '/finalViews/register.html'));
+  res.sendFile(path.join(__dirname,'/finalViews/register.html'));
 });
 
 app.post("/register",(req, res) => {
-    final.registerUser(req.body).then(() =>{
-     res.send(data.email + 'register successfully. <br> <a href ="/home">Go home</a>');
+    Final.registerUser(req.body).then(() =>{
+     res.send(data.email + 'You have registered successfully. <br> <a href ="/home">Go home</a>');
     }).catch(err => res.render({message: "Error"}));
   
   });
@@ -26,16 +28,16 @@ app.get("/signIn", function(req,res){
 });
 
 app.post("/signIn",(req, res) => {
-  final.signIn().then(() =>{
-  }).catch(err => res.render({message: "Error"}));
+  Final.signIn().then(() =>{
+  }).catch(err => res.render({message:"Error!!!"}));
 
 })
   app.use((req, res) => {
-    res.status(404).send("Page Not Found");
+    res.status(404).send("Page Not Found!!!");
   });
 
-  final.startDB()
-  .then(final.startDB)
+  Final.startDB()
+  .then(Final.startDB)
   .then(function () {
     app.listen(port, onhttp);
    })
